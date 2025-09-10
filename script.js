@@ -1,0 +1,103 @@
+// Produtos fixos no site
+const produtos = [
+  { nome: "Camiseta Azul", preco: 49.90, imagem: "https://raw.githubusercontent.com/DuqueDanyllo/PORTIFOLIO/refs/heads/main/minhafoto.jpg" },
+  { nome: "Boné Preto", preco: 29.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://raw.githubusercontent.com/DuqueDanyllo/PORTIFOLIO/refs/heads/main/minhafoto.jpg" },
+  { nome: "Jaqueta Jeans", preco: 159.90, imagem: "https://via.placeholder.com/200" }
+];
+
+const listaProdutos = document.getElementById("product-list");
+const searchInput = document.getElementById("search");
+const cartDiv = document.getElementById("cart");
+const totalDiv = document.getElementById("total");
+const numeroWhatsApp = "5527998151141";
+
+let carrinho = [];
+
+// Renderizar produtos
+function renderizarProdutos(filtro = "") {
+  listaProdutos.innerHTML = "";
+  produtos
+    .filter(p => p.nome.toLowerCase().includes(filtro.toLowerCase()))
+    .forEach((p, index) => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${p.imagem}" alt="${p.nome}">
+        <h3>${p.nome}</h3>
+        <p>R$ ${p.preco.toFixed(2)}</p>
+        <button onclick="adicionarAoCarrinho(${index})">Adicionar</button>
+      `;
+      listaProdutos.appendChild(card);
+    });
+}
+
+// Carrinho
+function adicionarAoCarrinho(i) {
+  carrinho.push(produtos[i]);
+  atualizarCarrinho();
+}
+function removerDoCarrinho(i) {
+  carrinho.splice(i, 1);
+  atualizarCarrinho();
+}
+function atualizarCarrinho() {
+  cartDiv.innerHTML = "";
+  let total = 0;
+  carrinho.forEach((item, i) => {
+    total += item.preco;
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `
+      <span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
+      <button onclick="removerDoCarrinho(${i})">X</button>
+    `;
+    cartDiv.appendChild(div);
+  });
+  totalDiv.textContent = "Total: R$ " + total.toFixed(2);
+}
+function limparCarrinho() {
+  carrinho = [];
+  atualizarCarrinho();
+}
+
+// Enviar para WhatsApp
+function enviarPedido() {
+  const nomeCliente = document.getElementById("nomeCliente").value.trim();
+
+  if (!nomeCliente) {
+    alert("Por favor, digite seu nome antes de enviar o pedido!");
+    return;
+  }
+
+  if (carrinho.length === 0) {
+    alert("Seu carrinho está vazio!");
+    return;
+  }
+
+  let mensagem = `Olá, meu nome é ${nomeCliente} e gostaria de fazer um pedido:%0A`;
+  let total = 0;
+  carrinho.forEach(item => {
+    mensagem += `- ${item.nome} (R$ ${item.preco.toFixed(2)})%0A`;
+    total += item.preco;
+  });
+  mensagem += `%0ATotal: R$ ${total.toFixed(2)}`;
+
+  window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, "_blank");
+}
+
+// Pesquisa
+searchInput.addEventListener("input", (e) => {
+  renderizarProdutos(e.target.value);
+});
+
+// Inicial
+renderizarProdutos();

@@ -1,16 +1,8 @@
 // Produtos fixos no site
 const produtos = [
-  { nome: "Camiseta Azul", preco: 49.90, imagem: "https://raw.githubusercontent.com/DuqueDanyllo/PORTIFOLIO/refs/heads/main/minhafoto.jpg" },
+  { nome: "Camiseta Azul", preco: 49.90, imagem: "https://via.placeholder.com/200" },
   { nome: "Boné Preto", preco: 29.90, imagem: "https://via.placeholder.com/200" },
   { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://raw.githubusercontent.com/DuqueDanyllo/PORTIFOLIO/refs/heads/main/minhafoto.jpg" },
   { nome: "Jaqueta Jeans", preco: 159.90, imagem: "https://via.placeholder.com/200" }
 ];
 
@@ -45,10 +37,12 @@ function adicionarAoCarrinho(i) {
   carrinho.push(produtos[i]);
   atualizarCarrinho();
 }
+
 function removerDoCarrinho(i) {
   carrinho.splice(i, 1);
   atualizarCarrinho();
 }
+
 function atualizarCarrinho() {
   cartDiv.innerHTML = "";
   let total = 0;
@@ -64,6 +58,7 @@ function atualizarCarrinho() {
   });
   totalDiv.textContent = "Total: R$ " + total.toFixed(2);
 }
+
 function limparCarrinho() {
   carrinho = [];
   atualizarCarrinho();

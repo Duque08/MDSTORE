@@ -1,6 +1,6 @@
 // Produtos fixos no site
 const produtos = [
-  { nome: "Camiseta Azul", preco: 49.90, imagem: "https://via.placeholder.com/200" },
+  { nome: "Lip Gloss", preco: 80.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/lip%20gloss%2080.png" },
   { nome: "Boné Preto", preco: 29.90, imagem: "https://via.placeholder.com/200" },
   { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
   { nome: "Fone de Ouvido Bluetooth", preco: 109.90, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/fone.jpg" }
@@ -96,4 +96,5 @@ searchInput.addEventListener("input", (e) => {
 
 // Inicial
 renderizarProdutos();
+
 

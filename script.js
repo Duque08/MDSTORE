@@ -3,7 +3,7 @@ const produtos = [
   { nome: "Camiseta Azul", preco: 49.90, imagem: "https://via.placeholder.com/200" },
   { nome: "Boné Preto", preco: 29.90, imagem: "https://via.placeholder.com/200" },
   { nome: "Tênis Esportivo", preco: 199.90, imagem: "https://via.placeholder.com/200" },
-  { nome: "Jaqueta Jeans", preco: 159.90, imagem: "https://via.placeholder.com/200" }
+  { nome: "Fone de Ouvido Bluetooth", preco: 109.90, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/fone.jpg" }
 ];
 
 const listaProdutos = document.getElementById("product-list");
@@ -96,3 +96,4 @@ searchInput.addEventListener("input", (e) => {
 
 // Inicial
 renderizarProdutos();
+

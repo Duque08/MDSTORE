@@ -3,6 +3,7 @@ const produtos = [
   { nome: "Lip Gloss", preco: 80.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/lip%20gloss%2080.png" },
   { nome: "Máquina de cortar cabelo", preco: 60.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/maquina%20de%20cortar%20cablo%2060%20reais.png" },
   { nome: "SmartWatch Bazik", preco: 250.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/relogio%20bazik%20250.png" },
+  { nome: "Copo Termico 1200ml", preco: 100.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/Copo%20floral%20100%20reais.jpg" },
   { nome: "Fone de Ouvido Bluetooth", preco: 109.90, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/fone.jpg" }
 ];
 
@@ -96,6 +97,7 @@ searchInput.addEventListener("input", (e) => {
 
 // Inicial
 renderizarProdutos();
+
 
 
 

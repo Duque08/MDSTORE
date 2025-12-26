@@ -5,14 +5,14 @@ import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.c
 
 // COLE SUA CONFIG DO FIREBASE AQUI
 const firebaseConfig = {
-  apiKey: "COLE_AQUI",
-  authDomain: "COLE_AQUI",
-  projectId: "COLE_AQUI",
-  storageBucket: "COLE_AQUI",
-  messagingSenderId: "COLE_AQUI",
-  appId: "COLE_AQUI"
+  apiKey: "AIzaSyCUmDl8N8TxQhAl-47l_JIbjmcVzzIiPuE",
+  authDomain: "mdstore-6dda0.firebaseapp.com",
+  databaseURL: "https://mdstore-6dda0-default-rtdb.firebaseio.com",
+  projectId: "mdstore-6dda0",
+  storageBucket: "mdstore-6dda0.firebasestorage.app",
+  messagingSenderId: "180082185045",
+  appId: "1:180082185045:web:88c0dcf8428d348b21d5dc"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -116,3 +116,4 @@ searchInput.addEventListener("input", e => {
 carregarProdutos();
 
 </script>
+

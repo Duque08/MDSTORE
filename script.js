@@ -1,11 +1,22 @@
-// Produtos fixos no site
-const produtos = [
-  { nome: "Lip Gloss", preco: 80.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/lip%20gloss%2080.png" },
-  { nome: "Máquina de cortar cabelo", preco: 60.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/maquina%20de%20cortar%20cablo%2060%20reais.png" },
-  { nome: "SmartWatch Bazik", preco: 250.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/relogio%20bazik%20250.png" },
-  { nome: "Copo Termico 1200ml", preco: 100.00, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/copo%20termico%201200ml%20100.png" },
-  { nome: "Fone de Ouvido Bluetooth", preco: 109.90, imagem: "https://raw.githubusercontent.com/Duque08/MDSTORE/refs/heads/main/fone.jpg" }
-];
+<script type="module">
+// ---------------- FIREBASE ------------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// COLE SUA CONFIG DO FIREBASE AQUI
+const firebaseConfig = {
+  apiKey: "COLE_AQUI",
+  authDomain: "COLE_AQUI",
+  projectId: "COLE_AQUI",
+  storageBucket: "COLE_AQUI",
+  messagingSenderId: "COLE_AQUI",
+  appId: "COLE_AQUI"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ------------------- SITE ---------------------
 
 const listaProdutos = document.getElementById("product-list");
 const searchInput = document.getElementById("search");
@@ -13,9 +24,18 @@ const cartDiv = document.getElementById("cart");
 const totalDiv = document.getElementById("total");
 const numeroWhatsApp = "5527998151141";
 
+let produtos = [];
 let carrinho = [];
 
-// Renderizar produtos
+// 🔹 BUSCAR PRODUTOS NO FIREBASE
+async function carregarProdutos() {
+  produtos = [];
+  const snap = await getDocs(collection(db, "produtos"));
+  snap.forEach(doc => produtos.push(doc.data()));
+  renderizarProdutos();
+}
+
+// 🔹 RENDERIZAR NA TELA
 function renderizarProdutos(filtro = "") {
   listaProdutos.innerHTML = "";
   produtos
@@ -26,20 +46,20 @@ function renderizarProdutos(filtro = "") {
       card.innerHTML = `
         <img src="${p.imagem}" alt="${p.nome}">
         <h3>${p.nome}</h3>
-        <p>R$ ${p.preco.toFixed(2)}</p>
+        <p>R$ ${Number(p.preco).toFixed(2)}</p>
         <button onclick="adicionarAoCarrinho(${index})">Adicionar</button>
       `;
       listaProdutos.appendChild(card);
     });
 }
 
-// Carrinho
-function adicionarAoCarrinho(i) {
+// 🔹 CARRINHO
+window.adicionarAoCarrinho = function(i) {
   carrinho.push(produtos[i]);
   atualizarCarrinho();
 }
 
-function removerDoCarrinho(i) {
+window.removerDoCarrinho = function(i) {
   carrinho.splice(i, 1);
   atualizarCarrinho();
 }
@@ -47,60 +67,52 @@ function removerDoCarrinho(i) {
 function atualizarCarrinho() {
   cartDiv.innerHTML = "";
   let total = 0;
+
   carrinho.forEach((item, i) => {
-    total += item.preco;
+    total += Number(item.preco);
     const div = document.createElement("div");
     div.className = "cart-item";
     div.innerHTML = `
-      <span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
+      <span>${item.nome} - R$ ${Number(item.preco).toFixed(2)}</span>
       <button onclick="removerDoCarrinho(${i})">X</button>
     `;
     cartDiv.appendChild(div);
   });
+
   totalDiv.textContent = "Total: R$ " + total.toFixed(2);
 }
 
-function limparCarrinho() {
+window.limparCarrinho = function(){
   carrinho = [];
   atualizarCarrinho();
 }
 
-// Enviar para WhatsApp
-function enviarPedido() {
+// 🔹 ENVIAR WHATSAPP
+window.enviarPedido = function(){
   const nomeCliente = document.getElementById("nomeCliente").value.trim();
 
-  if (!nomeCliente) {
-    alert("Por favor, digite seu nome antes de enviar o pedido!");
-    return;
-  }
-
-  if (carrinho.length === 0) {
-    alert("Seu carrinho está vazio!");
-    return;
-  }
+  if (!nomeCliente) return alert("Digite seu nome");
+  if (carrinho.length === 0) return alert("Carrinho vazio");
 
   let mensagem = `Olá, meu nome é ${nomeCliente} e gostaria de fazer um pedido:%0A`;
   let total = 0;
+
   carrinho.forEach(item => {
-    mensagem += `- ${item.nome} (R$ ${item.preco.toFixed(2)})%0A`;
-    total += item.preco;
+    mensagem += `- ${item.nome} (R$ ${Number(item.preco).toFixed(2)})%0A`;
+    total += Number(item.preco);
   });
+
   mensagem += `%0ATotal: R$ ${total.toFixed(2)}`;
 
   window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, "_blank");
-}
+};
 
-// Pesquisa
-searchInput.addEventListener("input", (e) => {
+// 🔹 PESQUISA
+searchInput.addEventListener("input", e => {
   renderizarProdutos(e.target.value);
 });
 
-// Inicial
-renderizarProdutos();
+// 🔹 INICIAR
+carregarProdutos();
 
-
-
-
-
-
-
+</script>

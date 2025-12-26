@@ -1,4 +1,4 @@
-<script type="module">
+
 // ---------------- FIREBASE ------------------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -115,5 +115,6 @@ searchInput.addEventListener("input", e => {
 // 🔹 INICIAR
 carregarProdutos();
 
-</script>
+
+
 

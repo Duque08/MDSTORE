@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Admin - Cadastrar produtos</title>
+</head>
+
+<body>
+<h1>Cadastrar Produto</h1>
+
+<input id="nome" placeholder="Nome"><br><br>
+<input id="preco" type="number" step="0.01" placeholder="Preço"><br><br>
+<input id="imagem" placeholder="URL da imagem"><br><br>
+
+<button id="btn">Salvar</button>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// MESMA CONFIG DO OUTRO ARQUIVO
+const firebaseConfig = {
+  apiKey: "AIzaSyCUmDl8N8TxQhAl-47l_JIbjmcVzzIiPuE",
+  authDomain: "mdstore-6dda0.firebaseapp.com",
+  databaseURL: "https://mdstore-6dda0-default-rtdb.firebaseio.com",
+  projectId: "mdstore-6dda0",
+  storageBucket: "mdstore-6dda0.firebasestorage.app",
+  messagingSenderId: "180082185045",
+  appId: "1:180082185045:web:88c0dcf8428d348b21d5dc"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.getElementById("btn").onclick = async function(){
+  const nome = document.getElementById("nome").value;
+  const preco = document.getElementById("preco").value;
+  const imagem = document.getElementById("imagem").value;
+
+  await addDoc(collection(db, "produtos"), {
+    nome,
+    preco,
+    imagem
+  });
+
+  alert("Produto cadastrado com sucesso!");
+};
+</script>
+
+</body>
+</html>

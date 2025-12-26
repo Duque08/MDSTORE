@@ -1,3 +1,4 @@
+console.log("Módulo carregado com sucesso!");
 
 // ---------------- FIREBASE ------------------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -114,6 +115,7 @@ searchInput.addEventListener("input", e => {
 
 // 🔹 INICIAR
 carregarProdutos();
+
 
 
 

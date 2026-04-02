@@ -1,8 +1,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 // --- SUBSTITUA COM SEUS DADOS DO SUPABASE ---
-const SUPABASE_URL = 'sb_publishable_jqOWQVpIu4pdYlpflJTBUQ_IR2t9P3H';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoaWdsam5ia3hxamJmbmF6a2VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxMDE5NDIsImV4cCI6MjA5MDY3Nzk0Mn0.oDnoinCDr9bipJ1zUutjtVrqP8lgfg8wIQaGJiG7KSM';
+const SUPABASE_URL = 'https://sb_publishable_jqOWQVpIu4pdYlpflJTBUQ_IR2t9P3H.supabase.co';
+const SUPABASE_KEY = 'https://eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoaWdsam5ia3hxamJmbmF6a2VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxMDE5NDIsImV4cCI6MjA5MDY3Nzk0Mn0.oDnoinCDr9bipJ1zUutjtVrqP8lgfg8wIQaGJiG7KSM.supabase.co';
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const listaProdutosHTML = document.getElementById("product-list");

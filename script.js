@@ -17,7 +17,7 @@ let carrinho = [];
 // 🔹 BUSCAR PRODUTOS NO SUPABASE
 async function carregarProdutos() {
     const { data, error } = await supabase
-        .from('produtos')
+        .from('produto')
         .select('*');
 
     if (error) {

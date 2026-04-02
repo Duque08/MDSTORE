@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Admin - Cadastrar produtos</title>
+    <meta charset="UTF-8">
+    <title>Admin - Cadastrar produtos</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 400px; }
+        input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { width: 100%; padding: 10px; background: #4d7433; color: white; border: none; cursor: pointer; border-radius: 5px; }
+    </style>
 </head>
-
 <body>
-<h1>Cadastrar Produto</h1>
+    <h1>Cadastrar Produto</h1>
+    <input id="nome" placeholder="Nome do Produto">
+    <input id="preco" type="number" step="0.01" placeholder="Preço (Ex: 25.00)">
+    <input id="imagem" placeholder="URL da imagem (Ex: ./fone.jpg)">
+    <button id="btn">Salvar no Supabase</button>
 
-<input id="nome" placeholder="Nome"><br><br>
-<input id="preco" type="number" step="0.01" placeholder="Preço"><br><br>
-<input id="imagem" placeholder="URL da imagem"><br><br>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-<button id="btn">Salvar</button>
+        // --- SUBSTITUA COM SEUS DADOS DO SUPABASE ---
+        const SUPABASE_URL = 'SUA_PROJECT_URL_AQUI';
+        const SUPABASE_KEY = 'SUA_ANON_PUBLIC_KEY_AQUI';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        document.getElementById("btn").onclick = async function(){
+            const nome = document.getElementById("nome").value;
+            const preco = parseFloat(document.getElementById("preco").value);
+            const imagem = document.getElementById("imagem").value;
 
-// MESMA CONFIG DO OUTRO ARQUIVO
-const firebaseConfig = {
-  apiKey: "AIzaSyCUmDl8N8TxQhAl-47l_JIbjmcVzzIiPuE",
-  authDomain: "mdstore-6dda0.firebaseapp.com",
-  databaseURL: "https://mdstore-6dda0-default-rtdb.firebaseio.com",
-  projectId: "mdstore-6dda0",
-  storageBucket: "mdstore-6dda0.firebasestorage.app",
-  messagingSenderId: "180082185045",
-  appId: "1:180082185045:web:88c0dcf8428d348b21d5dc"
-};
+            if(!nome || !preco) return alert("Preencha nome e preço!");
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+            const { data, error } = await supabase
+                .from('produtos')
+                .insert([{ nome, preco, imagem }]);
 
-document.getElementById("btn").onclick = async function(){
-  const nome = document.getElementById("nome").value;
-  const preco = document.getElementById("preco").value;
-  const imagem = document.getElementById("imagem").value;
-
-  await addDoc(collection(db, "produtos"), {
-    nome,
-    preco,
-    imagem
-  });
-
-  alert("Produto cadastrado com sucesso!");
-};
-</script>
-
+            if (error) {
+                alert("Erro: " + error.message);
+            } else {
+                alert("Produto cadastrado com sucesso!");
+                document.getElementById("nome").value = "";
+                document.getElementById("preco").value = "";
+                document.getElementById("imagem").value = "";
+            }
+        };
+    </script>
 </body>
 </html>
